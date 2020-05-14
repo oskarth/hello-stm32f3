@@ -47,8 +47,11 @@ fn main() -> ! {
 
     // Enable EXTI0 Interrupt
     let mut nvic = cp.NVIC;
-    nvic.enable(stm32f3::stm32f303::Interrupt::EXTI0);
+    unsafe {
+        cortex_m::peripheral::NVIC::unmask(stm32f3::stm32f303::Interrupt::EXTI0);
 
+        //nvic.enable(stm32f3::stm32f303::Interrupt::EXTI0);
+    }
     // dbg!("Hello world");
 
     loop {
